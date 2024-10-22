@@ -15,7 +15,6 @@ public class MergeSortImproved {
    */
   @SuppressWarnings("unchecked")
   public static <T extends Comparable<T>> void mergeSortHalfSpace(T[] items) {
-    // Step 1
     T[] temp = (T[]) new Comparable[(items.length + 1) / 2];
     mergeSortHalfSpace(items, temp, 0, items.length - 1);
   }
