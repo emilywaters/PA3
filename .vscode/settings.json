@@ -1,0 +1,40 @@
+{
+    "breadcrumbs.enabled": false,
+    "editor.codeLens": false,
+    "editor.tabSize": 2,
+    "editor.detectIndentation": false,
+    "editor.inlayHints.enabled": "offUnlessPressed",
+    "editor.minimap.enabled": false,
+    "editor.scrollBeyondLastLine": false,
+    "files.insertFinalNewline": true,
+    "files.trimFinalNewlines": true,
+    "files.trimTrailingWhitespace": true,
+    "terminal.integrated.allowChords": false,
+    "workbench.tree.indent": 16,
+    "java.checkstyle.configuration": "/google_checks.xml",
+    "java.debug.settings.stepping.skipClasses": [
+        "$JDK",
+        "$Libraries"
+    ],
+    "java.format.settings.url": ".vscode/eclipse-java-google-style.xml",
+    "java.project.sourcePaths": [
+        "src"
+    ],
+    "java.project.outputPath": "bin",
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar"
+    ],
+    "java.debug.settings.onBuildFailureProceed": true,
+    "java.debug.settings.showLogicalStructure": true,
+    "java.debug.settings.showQualifiedNames": false,
+    "java.debug.settings.showStaticVariables": true,
+    "java.test.config": {
+      "coverage": {
+        "appendResult": false
+      }
+    },
+    "cSpell.words": [
+      "curr",
+      "Subsort"
+    ],
+}
