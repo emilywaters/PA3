@@ -8,7 +8,7 @@ import java.util.Arrays;
 
 public class MergeSortImproved {
 
-  private static final int MERGE_SORT_THRESHOLD = 100; // TODO find threshold
+  private static final int MERGE_SORT_THRESHOLD = 4; // TODO find threshold
 
   /**
    * Merge sort the provided array using an improved merge operation.
@@ -82,7 +82,10 @@ public class MergeSortImproved {
    */
   @SuppressWarnings("unchecked")
   public static <T extends Comparable<T>> void mergeSubsortAdaptive(T[] items, int start, int end) {
-    if (items.length < MERGE_SORT_THRESHOLD) { // insertion sort
+    if (start >= end) { // List has one record
+      return;
+    }
+    if (end - start < MERGE_SORT_THRESHOLD) { // insertion sort
       BasicSorts.insertionSubsort(items, start, end);
     } else { // merge sort
       int mid = (start + end) / 2;
