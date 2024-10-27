@@ -8,7 +8,7 @@ import java.util.Arrays;
 
 public class MergeSortImproved {
 
-  private static final int MERGE_SORT_THRESHOLD = 4; // TODO find threshold
+  private static final int MERGE_SORT_THRESHOLD = 10; // TODO find threshold
 
   /**
    * Merge sort the provided array using an improved merge operation.
@@ -57,7 +57,7 @@ public class MergeSortImproved {
         items[curr] = items[i2++];
       } else if (i2 > right) { // if the right side is exhausted
         items[curr] = temp[i1++];
-      } else if (temp[i1].compareTo(items[i2]) <= 0)  { // get the smaller value
+      } else if (temp[i1].compareTo(items[i2]) <= 0) { // get the smaller value
         items[curr] = temp[i1++];
       } else {
         items[curr] = items[i2++];
@@ -75,27 +75,24 @@ public class MergeSortImproved {
 
   /**
    * Merge sort the provided sub-array using our improved merge sort. This is the fallback method
-   * used by introspective sort.
-   * Branches:
-   * if the array is small, insertion sort
-   * if the array is large, merge sort
+   * used by introspective sort. Branches: if the array is small, insertion sort if the array is
+   * large, merge sort
    */
   @SuppressWarnings("unchecked")
   public static <T extends Comparable<T>> void mergeSubsortAdaptive(T[] items, int start, int end) {
-    if (start >= end) { // List has one record
-      return;
-    }
-    if (end - start < MERGE_SORT_THRESHOLD) { // insertion sort
+    int mid = (start + end) / 2;
+    T[] temp = (T[]) new Comparable[(items.length + 1) / 2];
+    mergeSubsortAdaptive(items, temp, start, mid, end);
+  }
+
+  private static <T extends Comparable<T>> void mergeSubsortAdaptive(T[] items, T[] temp, int start,
+      int mid, int end) {
+    if (((end - start) + 1) < MERGE_SORT_THRESHOLD) { // insertion sort
       BasicSorts.insertionSubsort(items, start, end);
     } else { // merge sort
-      int mid = (start + end) / 2;
-      T[] temp = (T[]) new Comparable[(items.length + 1) / 2];
-
       mergeSubsortAdaptive(items, start, mid); // MergeSort left half
       mergeSubsortAdaptive(items, mid + 1, end); // MergeSort right half
       merge(items, temp, start, mid, end); // Merge the two sorted halves.
     }
-
   }
-
 }

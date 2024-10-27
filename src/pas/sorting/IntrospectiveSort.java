@@ -1,5 +1,7 @@
 package pas.sorting;
 
+import java.util.Arrays;
+
 /**
  * IntrospectiveSort class.
  */
@@ -10,7 +12,8 @@ public class IntrospectiveSort {
    * Sort the provided items using introspective sort.
    */
   public static <T extends Comparable<T>> void introspectiveSort(T[] items) {
-    introspectiveSort(items, 2 * Math.log(items.length));
+    double depth = 2 * Math.floor(Math.log(items.length) / Math.log(2));
+    introspectiveSort(items, depth);
   }
 
   /**
@@ -24,7 +27,10 @@ public class IntrospectiveSort {
     } else if (items.length == 0 || items.length == 1) {
       return;
     } else {
-      //int pivot = QuickSort.partition(items, 0, 0, 0);
+      int pivot = QuickSort.partition(items, 0, items.length - 1,  0); //TODO
+
+      introspectiveSort(Arrays.copyOfRange(items, 0, pivot), maxDepth - 1); // left
+      introspectiveSort(Arrays.copyOfRange(items, pivot, items.length - 1), maxDepth - 1); // right
       // pivot ← partition(sub-array)
       //introspective_sort(sub-array[0 to pivot - 1], depth-limit - 1)
       //introspective_sort(sub-array[pivot + 1 to end], depth-limit - 1)

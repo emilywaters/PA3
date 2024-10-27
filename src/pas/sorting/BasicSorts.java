@@ -31,10 +31,7 @@ public class BasicSorts {
    * Insertion sort just the indicated region of the array.
    */
   public static <T extends Comparable<T>> void insertionSubsort(T[] items, int start, int end) {
-    for (int i = start; i <= end; i++) {
-      if (i == 0) {
-        continue;
-      }
+    for (int i = start + 1; i <= end; i++) {
       T cur = items[i];
       int j = i;
       for (; (j > 0) && (cur.compareTo(items[j - 1]) < 0); j--) {
@@ -42,8 +39,6 @@ public class BasicSorts {
       }
       items[j] = cur;
     }
-
-
 
   }
 
