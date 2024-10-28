@@ -21,20 +21,16 @@ public class IntrospectiveSort {
    * is pathological, if so, switch method to use merge sort.
    */
   public static <T extends Comparable<T>> void introspectiveSort(T[] items, double maxDepth) {
-    // TODO
     if (maxDepth == 0) {
-      MergeSortImproved.mergeSortAdaptive(items);
+      MergeSortImproved.mergeSubsortAdaptive(items, 0, items.length - 1);;
     } else if (items.length == 0 || items.length == 1) {
       return;
     } else {
-      int pivot = QuickSort.partition(items, 0, items.length - 1,  0); //TODO
+      int pivot = QuickSort.findPivot(items, 0, items.length - 1);
+      int partition = QuickSort.partition(items, 0, items.length - 1,  pivot);
 
-      introspectiveSort(Arrays.copyOfRange(items, 0, pivot), maxDepth - 1); // left
-      introspectiveSort(Arrays.copyOfRange(items, pivot, items.length - 1), maxDepth - 1); // right
-      // pivot ← partition(sub-array)
-      //introspective_sort(sub-array[0 to pivot - 1], depth-limit - 1)
-      //introspective_sort(sub-array[pivot + 1 to end], depth-limit - 1)
-
+      introspectiveSort(Arrays.copyOfRange(items, 0, partition), maxDepth - 1);
+      introspectiveSort(Arrays.copyOfRange(items, partition + 1, items.length), maxDepth - 1);
     }
 
 

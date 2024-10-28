@@ -8,7 +8,11 @@ import java.util.Arrays;
 
 public class MergeSortImproved {
 
-  private static final int MERGE_SORT_THRESHOLD = 10; // TODO find threshold
+  private static int MERGE_SORT_THRESHOLD = 10; // TODO find threshold
+
+  public static void changeThreshold(int threshold) {
+    MERGE_SORT_THRESHOLD = threshold;
+  }
 
   /**
    * Merge sort the provided array using an improved merge operation.
@@ -30,7 +34,7 @@ public class MergeSortImproved {
     }
     int mid = (left + right) / 2; // get the middle
     mergeSortHalfSpace(items, temp, left, mid); // Mergesort first half
-    mergeSortHalfSpace(items, temp, mid + 1, right); // Mergesort second half
+    // mergeSortHalfSpace(items, temp, mid + 1, right); // Mergesort second half
 
     merge(items, temp, left, mid, right);
   }
@@ -69,8 +73,10 @@ public class MergeSortImproved {
    * Merge sort the provided array by using an improved merge operation and switching to insertion
    * sort for small sub-arrays.
    */
+  @SuppressWarnings("unchecked")
   public static <T extends Comparable<T>> void mergeSortAdaptive(T[] items) {
-    mergeSubsortAdaptive(items, 0, items.length - 1);
+    T[] temp = (T[]) new Comparable[(items.length + 1) / 2];
+    adaptiveHelper(items, temp, 0, items.length - 1);
   }
 
   /**
@@ -80,18 +86,17 @@ public class MergeSortImproved {
    */
   @SuppressWarnings("unchecked")
   public static <T extends Comparable<T>> void mergeSubsortAdaptive(T[] items, int start, int end) {
-    int mid = (start + end) / 2;
     T[] temp = (T[]) new Comparable[(items.length + 1) / 2];
-    mergeSubsortAdaptive(items, temp, start, mid, end);
+    adaptiveHelper(items, temp, start, end);
   }
 
-  private static <T extends Comparable<T>> void mergeSubsortAdaptive(T[] items, T[] temp, int start,
-      int mid, int end) {
+  private static <T extends Comparable<T>> void adaptiveHelper(T[] items, T[] temp, int start, int end) {
     if (((end - start) + 1) < MERGE_SORT_THRESHOLD) { // insertion sort
       BasicSorts.insertionSubsort(items, start, end);
     } else { // merge sort
-      mergeSubsortAdaptive(items, start, mid); // MergeSort left half
-      mergeSubsortAdaptive(items, mid + 1, end); // MergeSort right half
+      int mid = (start / end) / 2;
+      adaptiveHelper(items, temp, start, mid); // MergeSort left half
+      adaptiveHelper(items, temp, mid + 1, end); // MergeSort right half
       merge(items, temp, start, mid, end); // Merge the two sorted halves.
     }
   }
